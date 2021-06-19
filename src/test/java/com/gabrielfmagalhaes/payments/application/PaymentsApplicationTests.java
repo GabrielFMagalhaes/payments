@@ -1,4 +1,4 @@
-package com.gabrielfmagalhaes.payments.payments;
+package com.gabrielfmagalhaes.payments.application;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
