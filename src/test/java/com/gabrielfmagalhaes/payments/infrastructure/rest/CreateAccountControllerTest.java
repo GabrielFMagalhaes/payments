@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -67,6 +68,7 @@ public class CreateAccountControllerTest {
         AccountResponse response = new AccountResponse(
             UUID.randomUUID(), 
             VALID_DOCUMENT_NUMBER, 
+            new BigDecimal(0), 
             currentDate, 
             currentDate);
 
@@ -79,6 +81,7 @@ public class CreateAccountControllerTest {
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.id", is(response.getId().toString())))
             .andExpect(jsonPath("$.document_number", is(response.getDocumentNumber())))
+            .andExpect(jsonPath("$.credit_available").value(response.getCreditAvailable()))
             .andExpect(jsonPath("$.created_at").isNotEmpty())
             .andExpect(jsonPath("$.updated_at").isNotEmpty())
         ;

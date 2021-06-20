@@ -9,6 +9,7 @@ public class AccountRestConverter {
         return new AccountResponse(
             account.getId(),
             account.getDocumentNumber(), 
+            account.getCreditAvailable(),
             account.getCreatedAt(),
             account.getUpdatedAt())
         ;

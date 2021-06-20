@@ -1,10 +1,10 @@
 package com.gabrielfmagalhaes.payments.infrastructure.rest.response;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,10 +19,14 @@ public class AccountResponse {
 
     @JsonProperty("document_number")
     private String documentNumber;
-
+    
+    @JsonProperty("credit_available")
+    private BigDecimal creditAvailable;
+    
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
 
     @JsonProperty("updated_at")
     private LocalDateTime updatedAt;
+
 }
