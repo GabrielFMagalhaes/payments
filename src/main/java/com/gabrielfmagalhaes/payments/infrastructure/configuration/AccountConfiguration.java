@@ -1,6 +1,6 @@
 package com.gabrielfmagalhaes.payments.infrastructure.configuration;
 
-import com.gabrielfmagalhaes.payments.infrastructure.rest.converters.AccountRestConverter;
+import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.converters.AccountRestConverter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

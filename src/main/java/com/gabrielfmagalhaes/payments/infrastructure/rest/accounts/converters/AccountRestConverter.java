@@ -1,7 +1,7 @@
-package com.gabrielfmagalhaes.payments.infrastructure.rest.converters;
+package com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.converters;
 
 import com.gabrielfmagalhaes.payments.core.account.Account;
-import com.gabrielfmagalhaes.payments.infrastructure.rest.response.AccountResponse;
+import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.response.AccountResponse;
 
 public class AccountRestConverter {
 

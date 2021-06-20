@@ -1,4 +1,4 @@
-package com.gabrielfmagalhaes.payments.infrastructure.rest.impl;
+package com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.impl;
 
 import javax.validation.Valid;
 
@@ -8,11 +8,11 @@ import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundExc
 import com.gabrielfmagalhaes.payments.core.account.ports.incoming.CreateAccountRequest;
 import com.gabrielfmagalhaes.payments.core.account.usecase.CreateAccountUseCase;
 import com.gabrielfmagalhaes.payments.core.account.usecase.GetAccountByIdUseCase;
-import com.gabrielfmagalhaes.payments.infrastructure.rest.AccountController;
-import com.gabrielfmagalhaes.payments.infrastructure.rest.converters.AccountRestConverter;
+import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.AccountController;
+import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.converters.AccountRestConverter;
+import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.response.AccountResponse;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.exceptions.NotFoundException;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.exceptions.ResourceConflictException;
-import com.gabrielfmagalhaes.payments.infrastructure.rest.response.AccountResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;

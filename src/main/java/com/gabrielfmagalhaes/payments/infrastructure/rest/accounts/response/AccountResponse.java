@@ -1,4 +1,4 @@
-package com.gabrielfmagalhaes.payments.infrastructure.rest.response;
+package com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
