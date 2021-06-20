@@ -19,7 +19,7 @@ public class Account {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Account (String documentNumber) {
+    public Account (final String documentNumber) {
         this.documentNumber = documentNumber;
     }
 }

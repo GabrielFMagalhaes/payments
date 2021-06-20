@@ -1,4 +1,4 @@
-package com.gabrielfmagalhaes.payments.infrastructure.rest.accounts;
+package com.gabrielfmagalhaes.payments.infrastructure.rest.account;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -18,8 +17,9 @@ import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountAlreadyExis
 import com.gabrielfmagalhaes.payments.core.account.ports.incoming.CreateAccountRequest;
 import com.gabrielfmagalhaes.payments.core.account.usecase.CreateAccountUseCase;
 import com.gabrielfmagalhaes.payments.core.account.usecase.GetAccountByIdUseCase;
+import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.AccountController;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.converters.AccountRestConverter;
-import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.response.AccountResponse;
+import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.response.CreateAccountResponse;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,8 +52,6 @@ public class CreateAccountControllerTest {
 
     private final static String VALID_DOCUMENT_NUMBER = "12345678900";
     
-    private final static LocalDateTime currentDate = LocalDateTime.now();
-
     @BeforeEach
     void setUp() {        
         mapper = new ObjectMapper();
@@ -65,25 +63,16 @@ public class CreateAccountControllerTest {
     void shouldCreateUser() throws Exception {
         CreateAccountRequest request = new CreateAccountRequest(VALID_DOCUMENT_NUMBER);
         
-        AccountResponse response = new AccountResponse(
-            UUID.randomUUID(), 
-            VALID_DOCUMENT_NUMBER, 
-            new BigDecimal(0), 
-            currentDate, 
-            currentDate);
+        CreateAccountResponse response = new CreateAccountResponse(UUID.randomUUID());
 
         when(createAccountUseCase.execute(any(CreateAccountRequest.class))).thenReturn(account);
-        when(accountRestConverter.mapToRest(any(Account.class))).thenReturn(response);
+        when(accountRestConverter.mapNewAccountToRest(any(Account.class))).thenReturn(response);
 
         this.mockMvc.perform(post("/accounts")
             .contentType(MediaType.APPLICATION_JSON)
             .content(mapper.writeValueAsString(request)))
             .andExpect(status().isCreated())
-            .andExpect(jsonPath("$.id", is(response.getId().toString())))
-            .andExpect(jsonPath("$.document_number", is(response.getDocumentNumber())))
-            .andExpect(jsonPath("$.credit_available").value(response.getCreditAvailable()))
-            .andExpect(jsonPath("$.created_at").isNotEmpty())
-            .andExpect(jsonPath("$.updated_at").isNotEmpty())
+            .andExpect(jsonPath("$.account_id", is(response.getId().toString())))
         ;
     }
 

@@ -11,6 +11,7 @@ import com.gabrielfmagalhaes.payments.core.account.usecase.GetAccountByIdUseCase
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.AccountController;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.converters.AccountRestConverter;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.response.AccountResponse;
+import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.response.CreateAccountResponse;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.exceptions.NotFoundException;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.exceptions.ResourceConflictException;
 
@@ -41,9 +42,9 @@ public class AccountControllerImpl implements AccountController {
     @Override
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public AccountResponse create(@RequestBody @Valid CreateAccountRequest request) {
+    public CreateAccountResponse create(@RequestBody @Valid CreateAccountRequest request) {
         try {
-            return accountRestConverter.mapToRest(createAccountUseCase.execute(request));
+            return accountRestConverter.mapNewAccountToRest(createAccountUseCase.execute(request));
         } catch (AccountAlreadyExistsException e) {
             throw new ResourceConflictException();
         }
@@ -56,7 +57,7 @@ public class AccountControllerImpl implements AccountController {
 
         try {
             Account account = getAccountByIdUseCase.execute(accountId);
-            return accountRestConverter.mapToRest(account);
+            return accountRestConverter.mapAccountToRest(account);
         } catch (AccountNotFoundException e) {
             throw new NotFoundException();
         }

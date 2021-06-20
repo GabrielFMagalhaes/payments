@@ -1,4 +1,4 @@
-package com.gabrielfmagalhaes.payments.infrastructure.rest.accounts;
+package com.gabrielfmagalhaes.payments.infrastructure.rest.account;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -16,6 +16,7 @@ import com.gabrielfmagalhaes.payments.core.account.Account;
 import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundException;
 import com.gabrielfmagalhaes.payments.core.account.usecase.CreateAccountUseCase;
 import com.gabrielfmagalhaes.payments.core.account.usecase.GetAccountByIdUseCase;
+import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.AccountController;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.converters.AccountRestConverter;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.response.AccountResponse;
 
@@ -61,21 +62,15 @@ public class GetAccountByIdControllerTest {
         
         AccountResponse response = new AccountResponse(
             UUID.randomUUID(), 
-            VALID_DOCUMENT_NUMBER, 
-            new BigDecimal(0), 
-            currentDate, 
-            currentDate);
+            VALID_DOCUMENT_NUMBER);
 
         when(getAccountByIdUseCase.execute(VALID_ID)).thenReturn(account);
-        when(accountRestConverter.mapToRest(any(Account.class))).thenReturn(response);
+        when(accountRestConverter.mapAccountToRest(any(Account.class))).thenReturn(response);
 
         this.mockMvc.perform(get("/accounts/{accountId}", VALID_ID))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id", is(response.getId().toString())))
+            .andExpect(jsonPath("$.account_id", is(response.getId().toString())))
             .andExpect(jsonPath("$.document_number", is(response.getDocumentNumber())))
-            .andExpect(jsonPath("$.credit_available").value(response.getCreditAvailable()))
-            .andExpect(jsonPath("$.created_at").isNotEmpty())
-            .andExpect(jsonPath("$.updated_at").isNotEmpty())
         ;
     }
 

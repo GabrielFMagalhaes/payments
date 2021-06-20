@@ -11,7 +11,9 @@ public class GetAccountByIdUseCaseImpl implements GetAccountByIdUseCase {
 
     @Override
     public Account execute(String id) {
-        throw new AccountNotFoundException("No account was found with id: " + id);
+        // throw new AccountNotFoundException("No account was found with id: " + id);
+        
+        return null;
     }
     
 }

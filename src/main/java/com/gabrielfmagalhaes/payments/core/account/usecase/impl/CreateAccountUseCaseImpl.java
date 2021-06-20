@@ -12,7 +12,9 @@ public class CreateAccountUseCaseImpl implements CreateAccountUseCase {
 
     @Override
     public Account execute(CreateAccountRequest request) {
-        throw new AccountAlreadyExistsException("Account already exists hehe");
+        // throw new AccountAlreadyExistsException("Account already exists with document number: " + request.getDocumentNumber());
+        
+        return null;
     }
     
 }

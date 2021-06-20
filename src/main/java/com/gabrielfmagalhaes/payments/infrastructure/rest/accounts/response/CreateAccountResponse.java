@@ -1,7 +1,5 @@
 package com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.response;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,12 +11,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountResponse {
-
+public class CreateAccountResponse {
+    
     @JsonProperty("account_id")
     private UUID id;
-
-    @JsonProperty("document_number")
-    private String documentNumber;
-
 }
