@@ -1,18 +1,18 @@
 package com.gabrielfmagalhaes.payments.core.account.usecase.impl;
 
 import com.gabrielfmagalhaes.payments.core.account.Account;
+import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountAlreadyExistsException;
 import com.gabrielfmagalhaes.payments.core.account.ports.incoming.CreateAccountRequest;
 import com.gabrielfmagalhaes.payments.core.account.usecase.CreateAccountUseCase;
 
-import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
 
-@Service
+@AllArgsConstructor
 public class CreateAccountUseCaseImpl implements CreateAccountUseCase {
 
     @Override
-    public Account create(CreateAccountRequest request) {
-        // TODO Auto-generated method stub
-        return null;
+    public Account execute(CreateAccountRequest request) {
+        throw new AccountAlreadyExistsException("Account already exists hehe");
     }
     
 }

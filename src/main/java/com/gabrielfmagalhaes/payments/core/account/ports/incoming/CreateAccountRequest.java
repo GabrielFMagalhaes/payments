@@ -1,6 +1,5 @@
 package com.gabrielfmagalhaes.payments.core.account.ports.incoming;
 
-
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,6 +14,6 @@ import lombok.NoArgsConstructor;
 public class CreateAccountRequest {
 
     @JsonProperty("document_number")
-    @NotEmpty
+    @NotEmpty(message = "Document Number should not be empty")
     private String documentNumber;
 }

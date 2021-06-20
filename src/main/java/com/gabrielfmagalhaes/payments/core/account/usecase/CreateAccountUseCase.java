@@ -4,5 +4,6 @@ import com.gabrielfmagalhaes.payments.core.account.Account;
 import com.gabrielfmagalhaes.payments.core.account.ports.incoming.CreateAccountRequest;
 
 public interface CreateAccountUseCase {
-    Account create(CreateAccountRequest request);
+    
+    Account execute(CreateAccountRequest request);
 }
