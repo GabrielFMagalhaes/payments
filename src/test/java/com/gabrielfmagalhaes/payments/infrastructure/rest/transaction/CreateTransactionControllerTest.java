@@ -51,8 +51,6 @@ public class CreateTransactionControllerTest {
 
     private Account account;
 
-    private final static String VALID_ID = UUID.randomUUID().toString();
-
     private final static String VALID_DOCUMENT_NUMBER = "12345678900";
 
     private final static int VALID_OPERATION_TYPE_ID = 1;

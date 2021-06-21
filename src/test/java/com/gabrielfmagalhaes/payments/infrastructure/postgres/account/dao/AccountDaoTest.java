@@ -2,7 +2,6 @@ package com.gabrielfmagalhaes.payments.infrastructure.postgres.account.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -13,8 +12,6 @@ import org.junit.jupiter.api.Test;
 public class AccountDaoTest {
 
     private final static String DOCUMENT_NUMBER = "12345678900";
-    
-    private final static BigDecimal CREDIT_AVAILABLE = new BigDecimal(10);
 
     private final static LocalDateTime CURRENT_DATE = LocalDateTime.now();
 
@@ -23,7 +20,6 @@ public class AccountDaoTest {
     private static final Account VALID_ACCOUNT = new Account(
         UUID, 
         DOCUMENT_NUMBER, 
-        CREDIT_AVAILABLE, 
         CURRENT_DATE,
         CURRENT_DATE)
     ;
@@ -31,18 +27,17 @@ public class AccountDaoTest {
     private static final AccountDao VALID_ACCOUNT_DAO = new AccountDao(
         UUID, 
         DOCUMENT_NUMBER,
-        CREDIT_AVAILABLE,
         CURRENT_DATE,
         CURRENT_DATE)
     ;
 
     @Test
-    void shouldConvertAccountDaoToEntityAccount() {
+    void shouldConvertAccountDaoToEntity() {
         assertThat(VALID_ACCOUNT_DAO.mapToEntity()).isEqualTo(VALID_ACCOUNT);
     }
 
     @Test
-    void shouldConvertEntityAccountToAccountDao() {
+    void shouldConvertEntityAccountToDao() {
         AccountDao accountDao = AccountDao.mapToDao(VALID_ACCOUNT);
         accountDao.setCreatedAt(CURRENT_DATE);
         accountDao.setUpdatedAt(CURRENT_DATE);

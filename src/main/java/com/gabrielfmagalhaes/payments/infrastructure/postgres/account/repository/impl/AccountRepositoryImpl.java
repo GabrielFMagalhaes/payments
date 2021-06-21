@@ -8,11 +8,8 @@ import com.gabrielfmagalhaes.payments.core.account.ports.outgoing.AccountReposit
 import com.gabrielfmagalhaes.payments.infrastructure.postgres.account.dao.AccountDao;
 import com.gabrielfmagalhaes.payments.infrastructure.postgres.account.repository.AccountRepository;
 
-import org.springframework.stereotype.Repository;
-
 import lombok.AllArgsConstructor;
 
-// @Repository
 @AllArgsConstructor
 public class AccountRepositoryImpl implements AccountRepositoryUseCase {
 

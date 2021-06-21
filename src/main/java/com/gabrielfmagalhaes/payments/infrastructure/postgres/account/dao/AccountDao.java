@@ -1,6 +1,5 @@
 package com.gabrielfmagalhaes.payments.infrastructure.postgres.account.dao;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -33,9 +32,6 @@ public class AccountDao {
     @Column(name = "document_number", nullable = false)
     private String documentNumber;
 
-    @Column(name = "credit_available", nullable = false)
-    private BigDecimal creditAvailable;
-
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -48,11 +44,10 @@ public class AccountDao {
         return new AccountDao()
             .withId(account.getId())
             .withDocumentNumber(account.getDocumentNumber())
-            .withCreditAvailable(account.getCreditAvailable())
         ;
     }
 
     public Account mapToEntity() {
-        return new Account(id, documentNumber, creditAvailable, createdAt, updatedAt);
+        return new Account(id, documentNumber, createdAt, updatedAt);
     }
 }
