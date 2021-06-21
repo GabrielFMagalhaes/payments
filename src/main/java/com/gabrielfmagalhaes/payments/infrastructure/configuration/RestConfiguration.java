@@ -1,4 +1,4 @@
-package com.gabrielfmagalhaes.payments.application.configuration;
+package com.gabrielfmagalhaes.payments.infrastructure.configuration;
 
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.converters.AccountRestConverter;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.convertes.TransactionRestConverter;

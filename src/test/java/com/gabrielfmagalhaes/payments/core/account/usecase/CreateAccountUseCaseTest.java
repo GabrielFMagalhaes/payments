@@ -1,8 +1,9 @@
 package com.gabrielfmagalhaes.payments.core.account.usecase;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.gabrielfmagalhaes.payments.core.account.Account;
+import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountAlreadyExistsException;
 import com.gabrielfmagalhaes.payments.core.account.ports.incoming.CreateAccountRequest;
 import com.gabrielfmagalhaes.payments.core.account.ports.outgoing.AccountRepositoryUseCase;
 import com.gabrielfmagalhaes.payments.core.account.usecase.impl.CreateAccountUseCaseImpl;
@@ -55,11 +57,32 @@ public class CreateAccountUseCaseTest {
             CURRENT_DATE, 
             CURRENT_DATE);
 
-        when(accountRepositoryUseCase.findByDocumentNumber(VALID_DOCUMENT_NUMBER)).thenReturn(Optional.of(account));
+        when(accountRepositoryUseCase.findByDocumentNumber(VALID_DOCUMENT_NUMBER)).thenReturn(Optional.empty());
         when(accountRepositoryUseCase.save(any(Account.class))).thenReturn(account);
 
-        Account savedAccount = createAccountUseCase.execute(request);
+        Account expected = createAccountUseCase.execute(request);
 
-        assertThat(createAccountUseCase.execute(request)).isEqualTo(savedAccount);
+        assertThat(createAccountUseCase.execute(request)).isEqualTo(expected);
+    }
+
+    @Test
+    void shouldThrowErrorWhenSaveAccountWithExistingDocumentNumber() {
+       
+        final CreateAccountRequest request = new CreateAccountRequest(VALID_DOCUMENT_NUMBER);
+        
+        final Account account = new Account(
+            UUID.randomUUID(),
+            VALID_DOCUMENT_NUMBER, 
+            VALID_CREDIT_AVAILABLE, 
+            CURRENT_DATE, 
+            CURRENT_DATE);
+
+        when(accountRepositoryUseCase.findByDocumentNumber(VALID_DOCUMENT_NUMBER)).thenReturn(Optional.of(account));
+
+        assertThrows(AccountAlreadyExistsException.class,() -> {
+            createAccountUseCase.execute(request);
+        }); 
+
+        verify(accountRepositoryUseCase, never()).save(any(Account.class));
     }
 }

@@ -7,16 +7,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gabrielfmagalhaes.payments.application.PaymentsApplication;
 import com.gabrielfmagalhaes.payments.core.account.Account;
 import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountAlreadyExistsException;
 import com.gabrielfmagalhaes.payments.core.account.ports.incoming.CreateAccountRequest;
 import com.gabrielfmagalhaes.payments.core.account.usecase.CreateAccountUseCase;
 import com.gabrielfmagalhaes.payments.core.account.usecase.GetAccountByIdUseCase;
+import com.gabrielfmagalhaes.payments.infrastructure.PaymentsApplication;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.AccountController;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.converters.AccountRestConverter;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.response.CreateAccountResponse;
@@ -91,7 +90,7 @@ public class CreateAccountControllerTest {
     void shouldReturn409WithExistingDocumentNumberAccount() throws Exception {
         CreateAccountRequest request = new CreateAccountRequest(VALID_DOCUMENT_NUMBER);
 
-        when(createAccountUseCase.execute(request)).thenThrow(new AccountAlreadyExistsException());
+        when(createAccountUseCase.execute(any(CreateAccountRequest.class))).thenThrow(new AccountAlreadyExistsException());
 
         this.mockMvc.perform(post("/accounts")
             .contentType(MediaType.APPLICATION_JSON)

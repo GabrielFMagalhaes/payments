@@ -21,7 +21,7 @@ public class CreateAccountUseCaseImpl implements CreateAccountUseCase {
 
         Optional<Account> account = accountRepository.findByDocumentNumber(request.getDocumentNumber());
 
-        if (account.isEmpty()) {
+        if (!account.isEmpty()) {
             throw new AccountAlreadyExistsException("Account already exists with document number: " + documentNumber);
         }
 

@@ -8,24 +8,29 @@ import com.gabrielfmagalhaes.payments.core.transaction.usecase.impl.CreateTransa
 import com.gabrielfmagalhaes.payments.infrastructure.postgres.account.repository.AccountRepository;
 import com.gabrielfmagalhaes.payments.infrastructure.postgres.account.repository.impl.AccountRepositoryImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RepositoryConfiguration {
     
-    public AccountRepositoryImpl accountRepositoryImpl(AccountRepository accountRepository) {
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Bean
+    public AccountRepositoryImpl accountRepositoryImpl() {
         return new AccountRepositoryImpl(accountRepository);
     }
 
     @Bean
     public GetAccountByIdUseCase getAccountByIdUseCase() {
-        return new GetAccountByIdUseCaseImpl();
+        return new GetAccountByIdUseCaseImpl(accountRepositoryImpl());
     }
 
     @Bean
-    public CreateAccountUseCaseImpl createAccountUseCase(AccountRepository accountRepository) {
-        return new CreateAccountUseCaseImpl(accountRepositoryImpl(accountRepository));
+    public CreateAccountUseCaseImpl createAccountUseCase() {
+        return new CreateAccountUseCaseImpl(accountRepositoryImpl());
     }
 
     @Bean

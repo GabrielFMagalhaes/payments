@@ -1,4 +1,4 @@
-package com.gabrielfmagalhaes.payments.application.configuration;
+package com.gabrielfmagalhaes.payments.infrastructure.configuration;
 
 import javax.sql.DataSource;
 

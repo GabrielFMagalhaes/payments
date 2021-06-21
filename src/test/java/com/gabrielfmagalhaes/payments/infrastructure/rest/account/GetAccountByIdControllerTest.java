@@ -9,11 +9,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.UUID;
 
-import com.gabrielfmagalhaes.payments.application.PaymentsApplication;
 import com.gabrielfmagalhaes.payments.core.account.Account;
 import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundException;
 import com.gabrielfmagalhaes.payments.core.account.usecase.CreateAccountUseCase;
 import com.gabrielfmagalhaes.payments.core.account.usecase.GetAccountByIdUseCase;
+import com.gabrielfmagalhaes.payments.infrastructure.PaymentsApplication;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.AccountController;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.converters.AccountRestConverter;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.response.AccountResponse;
@@ -60,7 +60,7 @@ public class GetAccountByIdControllerTest {
             UUID.randomUUID(), 
             VALID_DOCUMENT_NUMBER);
 
-        when(getAccountByIdUseCase.execute(VALID_ID)).thenReturn(account);
+        when(getAccountByIdUseCase.execute(any(UUID.class))).thenReturn(account);
         when(accountRestConverter.mapAccountToRest(any(Account.class))).thenReturn(response);
 
         this.mockMvc.perform(get("/accounts/{accountId}", VALID_ID))
@@ -72,7 +72,7 @@ public class GetAccountByIdControllerTest {
 
     @Test 
     void shouldReturn404WhenUserIsNotFound() throws Exception {
-        when(getAccountByIdUseCase.execute(VALID_ID)).thenThrow(new AccountNotFoundException("nothing"));
+        when(getAccountByIdUseCase.execute(any(UUID.class))).thenThrow(new AccountNotFoundException("nothing"));
 
         this.mockMvc.perform(get("/accounts/{accountId}", VALID_ID))
             .andExpect(status().isNotFound())

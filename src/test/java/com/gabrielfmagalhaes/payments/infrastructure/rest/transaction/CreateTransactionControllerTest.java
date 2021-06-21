@@ -8,16 +8,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gabrielfmagalhaes.payments.application.PaymentsApplication;
 import com.gabrielfmagalhaes.payments.core.account.Account;
 import com.gabrielfmagalhaes.payments.core.account.usecase.GetAccountByIdUseCase;
 import com.gabrielfmagalhaes.payments.core.transaction.Transaction;
 import com.gabrielfmagalhaes.payments.core.transaction.ports.incoming.CreateTransactionRequest;
 import com.gabrielfmagalhaes.payments.core.transaction.usecase.CreateTransactionUseCase;
+import com.gabrielfmagalhaes.payments.infrastructure.PaymentsApplication;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.convertes.TransactionRestConverter;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.response.TransactionResponse;
 
@@ -84,7 +83,7 @@ public class CreateTransactionControllerTest {
             UUID.randomUUID());
 
         when(createTransactionUseCase.execute(request)).thenReturn(transaction);
-        when(getAccountByIdUseCase.execute(VALID_ID)).thenReturn(account);
+        when(getAccountByIdUseCase.execute(UUID.randomUUID())).thenReturn(account);
 
         when(transactionRestConverter.mapToRest(any(Transaction.class))).thenReturn(response);
 

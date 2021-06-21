@@ -1,5 +1,7 @@
 package com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.impl;
 
+import java.util.UUID;
+
 import javax.validation.Valid;
 
 import com.gabrielfmagalhaes.payments.core.account.Account;
@@ -56,7 +58,7 @@ public class AccountControllerImpl implements AccountController {
     public AccountResponse findById(@PathVariable String accountId) {
 
         try {
-            Account account = getAccountByIdUseCase.execute(accountId);
+            Account account = getAccountByIdUseCase.execute(UUID.fromString(accountId));
             return accountRestConverter.mapAccountToRest(account);
         } catch (AccountNotFoundException e) {
             throw new NotFoundException();

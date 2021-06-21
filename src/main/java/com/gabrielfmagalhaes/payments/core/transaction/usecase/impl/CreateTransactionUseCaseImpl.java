@@ -1,6 +1,8 @@
 package com.gabrielfmagalhaes.payments.core.transaction.usecase.impl;
 
 
+import java.util.UUID;
+
 import com.gabrielfmagalhaes.payments.core.account.Account;
 import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundException;
 import com.gabrielfmagalhaes.payments.core.account.usecase.GetAccountByIdUseCase;
@@ -17,7 +19,7 @@ public class CreateTransactionUseCaseImpl implements CreateTransactionUseCase {
 
     @Override
     public Transaction execute(CreateTransactionRequest request) {
-        Account account = getAccountByIdUseCase.execute(request.getAccountId());
+        Account account = getAccountByIdUseCase.execute(UUID.fromString(request.getAccountId()));
 
         // if (account == null) {
         //     throw new AccountNotFoundException("No account was found with account id: " + request.getAccountId());

@@ -12,11 +12,11 @@ import org.springframework.stereotype.Repository;
 
 import lombok.AllArgsConstructor;
 
-@Repository
+// @Repository
 @AllArgsConstructor
 public class AccountRepositoryImpl implements AccountRepositoryUseCase {
 
-    private final AccountRepository accountRepository;
+    private AccountRepository accountRepository;
 
     @Override
     public Account save(Account account) {
