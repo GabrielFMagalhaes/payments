@@ -1,6 +1,11 @@
 spring:
   application:
-    name: samsungpay-web-api
+    name: payments
+  datasource:
+    driverClassName: org.postgresql.Driver
+    jdbcUrl: jdbc:postgresql://localhost:5432/payments-challenge
+    username: postgres
+    password: docker
 server:
   host: http://localhost
   port: 8080

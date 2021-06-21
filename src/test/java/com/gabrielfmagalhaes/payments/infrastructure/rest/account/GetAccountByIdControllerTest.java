@@ -7,8 +7,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.gabrielfmagalhaes.payments.application.PaymentsApplication;
@@ -49,8 +47,6 @@ public class GetAccountByIdControllerTest {
     private final static String VALID_DOCUMENT_NUMBER = "12345678900";
 
     private final static String VALID_ID = UUID.randomUUID().toString();
-
-    private final static LocalDateTime currentDate = LocalDateTime.now();
 
     @BeforeEach
     void setUp() {

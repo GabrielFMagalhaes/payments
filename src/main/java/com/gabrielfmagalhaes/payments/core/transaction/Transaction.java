@@ -7,10 +7,12 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.With;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@With
 public class Transaction {
 
     private UUID id = UUID.randomUUID();
