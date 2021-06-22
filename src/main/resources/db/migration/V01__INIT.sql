@@ -1,20 +1,19 @@
 CREATE TABLE IF NOT EXISTS account (
-    id UUID NOT NULL,
+    id UUID NOT NULL PRIMARY KEY,
     document_number VARCHAR(20) NOT null,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS operation (
-    id int NOT NULL,
+    id int NOT NULL PRIMARY KEY,
     description VARCHAR(50) NOT null
 );
 
 CREATE TABLE IF NOT EXISTS transaction (
-    id UUID NOT NULL,
+    id UUID NOT NULL PRIMARY KEY,
     account_id UUID NOT NULL,
     operation_type_id int not null,
-    operation_type_id smallint NOT null,
     amount decimal NOT NULL,
     event_date TIMESTAMP NOT null,
     

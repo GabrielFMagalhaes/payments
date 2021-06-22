@@ -2,12 +2,13 @@ spring:
   application:
     name: payments
   datasource:
-    driverClassName: org.postgresql.Driver
-    jdbcUrl: jdbc:postgresql://localhost:5432/payments-challenge
-    username: postgres
-    password: docker
+    jdbcUrl: ${JDBC_URL}
+    username: ${JDBC_USER}
+    password: ${JDBC_PASSWORD}
+    # driverClassName: org.postgresql.Driver
+  flyway: 
+    baseline-on-migrate: true
 server:
-  host: http://localhost
   port: 8080
   servlet:
     context-path: /payments/v1
