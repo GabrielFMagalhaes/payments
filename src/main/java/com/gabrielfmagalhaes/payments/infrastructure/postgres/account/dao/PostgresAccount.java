@@ -19,12 +19,12 @@ import lombok.NoArgsConstructor;
 import lombok.With;
 
 @Entity
-@Table(name = "Account")
+@Table(name = "account")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @With
-public class AccountDao {
+public class PostgresAccount {
 
     @Id
     private UUID id = UUID.randomUUID();
@@ -34,20 +34,25 @@ public class AccountDao {
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @LastModifiedDate
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
-    public static AccountDao mapToDao(final Account account) {
-        return new AccountDao()
+    public static PostgresAccount mapToPostgres(final Account account) {
+        return new PostgresAccount()
             .withId(account.getId())
             .withDocumentNumber(account.getDocumentNumber())
         ;
     }
 
     public Account mapToEntity() {
-        return new Account(id, documentNumber, createdAt, updatedAt);
+        return new Account()
+            .withId(id)
+            .withDocumentNumber(documentNumber)
+            .withCreatedAt(createdAt)
+            .withUpdatedAt(updatedAt)
+        ;
     }
 }

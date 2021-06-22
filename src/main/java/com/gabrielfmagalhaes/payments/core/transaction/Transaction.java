@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.gabrielfmagalhaes.payments.core.account.Account;
+import com.gabrielfmagalhaes.payments.core.operation.Operation;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,14 +19,14 @@ import lombok.With;
 public class Transaction {
 
     private UUID id = UUID.randomUUID();
-    private UUID accountId;
-    private int operationTypeId;
+    private Account account;
+    private Operation operation;
     private BigDecimal amount;
-    private LocalDateTime eventDate;
+    private LocalDateTime eventDate = LocalDateTime.now();
 
-    public Transaction(final UUID accountId, final int operationTypeId, final BigDecimal amount) {
-        this.accountId = accountId;
-        this.operationTypeId = operationTypeId;
+    public Transaction(final Account account, final Operation operation, final BigDecimal amount) {
+        this.account = account;
+        this.operation = operation;
         this.amount = amount;
     }
 }

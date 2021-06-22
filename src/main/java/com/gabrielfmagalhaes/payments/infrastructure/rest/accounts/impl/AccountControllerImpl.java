@@ -48,7 +48,7 @@ public class AccountControllerImpl implements AccountController {
         try {
             return accountRestConverter.mapNewAccountToRest(createAccountUseCase.execute(request));
         } catch (AccountAlreadyExistsException e) {
-            throw new ResourceConflictException();
+            throw new ResourceConflictException(e.getMessage());
         }
     }
 
@@ -61,7 +61,7 @@ public class AccountControllerImpl implements AccountController {
             Account account = getAccountByIdUseCase.execute(UUID.fromString(accountId));
             return accountRestConverter.mapAccountToRest(account);
         } catch (AccountNotFoundException e) {
-            throw new NotFoundException();
+            throw new NotFoundException(e.getMessage());
         }
     }
 

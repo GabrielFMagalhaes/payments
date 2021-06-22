@@ -15,6 +15,9 @@ import java.util.UUID;
 import com.gabrielfmagalhaes.payments.core.account.Account;
 import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundException;
 import com.gabrielfmagalhaes.payments.core.account.ports.outgoing.AccountRepositoryUseCase;
+import com.gabrielfmagalhaes.payments.core.operation.Operation;
+import com.gabrielfmagalhaes.payments.core.operation.exceptions.InvalidOperationTypeException;
+import com.gabrielfmagalhaes.payments.core.operation.ports.outgoing.OperationRepositoryUseCase;
 import com.gabrielfmagalhaes.payments.core.transaction.ports.incoming.CreateTransactionRequest;
 import com.gabrielfmagalhaes.payments.core.transaction.ports.outgoing.TransactionRepositoryUseCase;
 import com.gabrielfmagalhaes.payments.core.transaction.usecase.impl.CreateTransactionUseCaseImpl;
@@ -38,45 +41,58 @@ public class CreateTransactionUseCaseTest {
     @Mock
     private AccountRepositoryUseCase accountRepositoryUseCase;
 
+    @Mock
+    private OperationRepositoryUseCase operationRepositoryUseCase;
+
     @InjectMocks
     private CreateTransactionUseCaseImpl createTransactionUseCase;
 
-    private static final LocalDateTime CURRENT_DATE = LocalDateTime.now();
+    private final static LocalDateTime CURRENT_DATE = LocalDateTime.now();
+
+    private final static UUID TRANSACTION_UUID = java.util.UUID.randomUUID();
+    private final static BigDecimal TRANSACTION_AMOUNT = new BigDecimal(30);
+
+    private final static UUID ACCOUNT_UUID = java.util.UUID.randomUUID();
+    private final static String ACCOUNT_DOCUMENT_NUMBER = "12345678900";
+    
+    private final static Long OPERATION_ID = 1l;
+    private final static String OPERATION_DESCRIPTION = "PAGAMENTO";
 
     private Account account;
+    private Operation operation;
 
-    private final static String VALID_DOCUMENT_NUMBER = "12345678900";
-
-    private final static int VALID_OPERATION_TYPE_ID = 1;
-    
-    private final static BigDecimal AMOUNT = new BigDecimal(30);
-    
     @BeforeEach
-    void setUp() {        
-        account = new Account(VALID_DOCUMENT_NUMBER);
+    void setUp() { 
+         account = new Account(
+            ACCOUNT_UUID, 
+            ACCOUNT_DOCUMENT_NUMBER, 
+            CURRENT_DATE,
+            CURRENT_DATE)
+        ;
+        
+        operation = new Operation(
+            OPERATION_ID, 
+            OPERATION_DESCRIPTION)
+        ;       
     }
 
     @Test
     void shouldSaveTransaction() {
         CreateTransactionRequest request = new CreateTransactionRequest(
             account.getId().toString(), 
-            VALID_OPERATION_TYPE_ID, 
-            AMOUNT);
+            OPERATION_ID, 
+            TRANSACTION_AMOUNT);
 
-        final Account account = new Account(
-            UUID.randomUUID(),
-            VALID_DOCUMENT_NUMBER,
-            CURRENT_DATE, 
-            CURRENT_DATE);
-        
         final Transaction transaction = new Transaction(
-            UUID.randomUUID(),
-            account.getId(), 
-            VALID_OPERATION_TYPE_ID, 
-            AMOUNT,
-            CURRENT_DATE);
+            TRANSACTION_UUID, 
+            account, 
+            operation,
+            TRANSACTION_AMOUNT,
+            CURRENT_DATE)
+        ;
 
         when(accountRepositoryUseCase.findById(any(UUID.class))).thenReturn(Optional.of(account));
+        when(operationRepositoryUseCase.findById(any(Long.class))).thenReturn(Optional.of(operation));
         when(transactionRepositoryUseCase.save(any(Transaction.class))).thenReturn(transaction);
 
         Transaction expected = createTransactionUseCase.execute(request);
@@ -86,15 +102,31 @@ public class CreateTransactionUseCaseTest {
 
     @Test
     void shouldThrowErrorWhenGetAccountByIdWithNoExistingId() {
-       
         CreateTransactionRequest request = new CreateTransactionRequest(
             account.getId().toString(), 
-            VALID_OPERATION_TYPE_ID, 
-            AMOUNT);
+            OPERATION_ID, 
+            TRANSACTION_AMOUNT);
 
         when(accountRepositoryUseCase.findById(any(UUID.class))).thenReturn(Optional.empty());
 
         assertThrows(AccountNotFoundException.class,() -> {
+            createTransactionUseCase.execute(request);
+        }); 
+
+        verify(accountRepositoryUseCase, never()).save(any(Account.class));
+    }
+
+    @Test
+    void shouldThrowErrorWhenGetOperationByIdWithNoExistingId() {
+        CreateTransactionRequest request = new CreateTransactionRequest(
+            account.getId().toString(), 
+            OPERATION_ID, 
+            TRANSACTION_AMOUNT);
+
+        when(accountRepositoryUseCase.findById(any(UUID.class))).thenReturn(Optional.of(account));
+        when(operationRepositoryUseCase.findById(any(Long.class))).thenReturn(Optional.empty());
+
+        assertThrows(InvalidOperationTypeException.class,() -> {
             createTransactionUseCase.execute(request);
         }); 
 

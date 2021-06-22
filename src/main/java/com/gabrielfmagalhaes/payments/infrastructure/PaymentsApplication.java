@@ -3,8 +3,7 @@ package com.gabrielfmagalhaes.payments.infrastructure;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
-@SpringBootApplication()
+@SpringBootApplication
 public class PaymentsApplication {
 
 	public static void main(String[] args) {

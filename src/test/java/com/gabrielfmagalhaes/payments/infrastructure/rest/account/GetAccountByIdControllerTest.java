@@ -32,10 +32,10 @@ public class GetAccountByIdControllerTest {
 
     @MockBean
     private GetAccountByIdUseCase getAccountByIdUseCase;
-    
+
     @MockBean
     private CreateAccountUseCase createAccountUseCase;
-
+    
     @MockBean
     private AccountRestConverter accountRestConverter;
 
@@ -61,6 +61,7 @@ public class GetAccountByIdControllerTest {
             VALID_DOCUMENT_NUMBER);
 
         when(getAccountByIdUseCase.execute(any(UUID.class))).thenReturn(account);
+
         when(accountRestConverter.mapAccountToRest(any(Account.class))).thenReturn(response);
 
         this.mockMvc.perform(get("/accounts/{accountId}", VALID_ID))
@@ -72,7 +73,8 @@ public class GetAccountByIdControllerTest {
 
     @Test 
     void shouldReturn404WhenUserIsNotFound() throws Exception {
-        when(getAccountByIdUseCase.execute(any(UUID.class))).thenThrow(new AccountNotFoundException("nothing"));
+        when(getAccountByIdUseCase.execute(any(UUID.class)))
+            .thenThrow(new AccountNotFoundException("error"));
 
         this.mockMvc.perform(get("/accounts/{accountId}", VALID_ID))
             .andExpect(status().isNotFound())

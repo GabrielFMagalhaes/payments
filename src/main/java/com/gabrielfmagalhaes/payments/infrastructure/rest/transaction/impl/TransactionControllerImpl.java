@@ -2,9 +2,11 @@ package com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.impl;
 
 import javax.validation.Valid;
 
+import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundException;
+import com.gabrielfmagalhaes.payments.core.operation.exceptions.InvalidOperationTypeException;
 import com.gabrielfmagalhaes.payments.core.transaction.ports.incoming.CreateTransactionRequest;
 import com.gabrielfmagalhaes.payments.core.transaction.usecase.CreateTransactionUseCase;
-import com.gabrielfmagalhaes.payments.infrastructure.rest.exceptions.ResourceConflictException;
+import com.gabrielfmagalhaes.payments.infrastructure.rest.exceptions.NotFoundException;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.TransactionController;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.convertes.TransactionRestConverter;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.response.TransactionResponse;
@@ -35,8 +37,8 @@ public class TransactionControllerImpl implements TransactionController {
     public TransactionResponse create(@RequestBody @Valid CreateTransactionRequest request) {
         try {
             return transactionRestConverter.mapToRest(createTransactionUseCase.execute(request));
-        } catch (Exception e) {
-            throw new ResourceConflictException();
+        } catch (AccountNotFoundException | InvalidOperationTypeException e) {
+            throw new NotFoundException(e.getMessage());
         }
     }
     

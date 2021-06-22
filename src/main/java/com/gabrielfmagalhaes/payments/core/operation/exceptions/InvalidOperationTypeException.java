@@ -1,4 +1,4 @@
-package com.gabrielfmagalhaes.payments.core.transaction.exceptions;
+package com.gabrielfmagalhaes.payments.core.operation.exceptions;
 
 import lombok.NoArgsConstructor;
 

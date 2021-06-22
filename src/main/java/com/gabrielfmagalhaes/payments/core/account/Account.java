@@ -16,8 +16,8 @@ public class Account {
 
     private UUID id = UUID.randomUUID();
     private String documentNumber;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     public Account (final String documentNumber) {
         this.documentNumber = documentNumber;

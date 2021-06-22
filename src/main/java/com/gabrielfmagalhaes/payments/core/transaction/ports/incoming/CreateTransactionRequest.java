@@ -25,7 +25,7 @@ public class CreateTransactionRequest {
     @JsonProperty("operation_type_id")
     @Min(1)
     @Max(4)
-    private int operationTypeId;
+    private Long operationTypeId;
 
     @NotNull
     private BigDecimal amount;

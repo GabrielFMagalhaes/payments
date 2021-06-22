@@ -64,8 +64,11 @@ public class CreateAccountControllerTest {
         
         CreateAccountResponse response = new CreateAccountResponse(UUID.randomUUID());
 
-        when(createAccountUseCase.execute(any(CreateAccountRequest.class))).thenReturn(account);
-        when(accountRestConverter.mapNewAccountToRest(any(Account.class))).thenReturn(response);
+        when(createAccountUseCase.execute(any(CreateAccountRequest.class)))
+            .thenReturn(account);
+        
+        when(accountRestConverter.mapNewAccountToRest(any(Account.class)))
+            .thenReturn(response);
 
         this.mockMvc.perform(post("/accounts")
             .contentType(MediaType.APPLICATION_JSON)
@@ -90,7 +93,8 @@ public class CreateAccountControllerTest {
     void shouldReturn409WithExistingDocumentNumberAccount() throws Exception {
         CreateAccountRequest request = new CreateAccountRequest(VALID_DOCUMENT_NUMBER);
 
-        when(createAccountUseCase.execute(any(CreateAccountRequest.class))).thenThrow(new AccountAlreadyExistsException());
+        when(createAccountUseCase.execute(any(CreateAccountRequest.class)))
+            .thenThrow(new AccountAlreadyExistsException("error"));
 
         this.mockMvc.perform(post("/accounts")
             .contentType(MediaType.APPLICATION_JSON)

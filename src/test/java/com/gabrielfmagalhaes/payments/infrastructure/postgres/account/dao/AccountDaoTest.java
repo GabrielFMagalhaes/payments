@@ -24,7 +24,7 @@ public class AccountDaoTest {
         CURRENT_DATE)
     ;
 
-    private static final AccountDao VALID_ACCOUNT_DAO = new AccountDao(
+    private static final PostgresAccount VALID_ACCOUNT_DAO = new PostgresAccount(
         UUID, 
         DOCUMENT_NUMBER,
         CURRENT_DATE,
@@ -38,7 +38,7 @@ public class AccountDaoTest {
 
     @Test
     void shouldConvertEntityAccountToDao() {
-        AccountDao accountDao = AccountDao.mapToDao(VALID_ACCOUNT);
+        PostgresAccount accountDao = PostgresAccount.mapToPostgres(VALID_ACCOUNT);
         accountDao.setCreatedAt(CURRENT_DATE);
         accountDao.setUpdatedAt(CURRENT_DATE);
 
