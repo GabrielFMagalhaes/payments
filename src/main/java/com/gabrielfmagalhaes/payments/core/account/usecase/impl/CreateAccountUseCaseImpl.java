@@ -8,10 +8,15 @@ import com.gabrielfmagalhaes.payments.core.account.ports.incoming.CreateAccountR
 import com.gabrielfmagalhaes.payments.core.account.ports.outgoing.AccountRepositoryUseCase;
 import com.gabrielfmagalhaes.payments.core.account.usecase.CreateAccountUseCase;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class CreateAccountUseCaseImpl implements CreateAccountUseCase {
+
+    private final static Logger logger = LoggerFactory.getLogger(CreateAccountUseCaseImpl.class);
 
     private final AccountRepositoryUseCase accountRepository;
 
@@ -25,6 +30,8 @@ public class CreateAccountUseCaseImpl implements CreateAccountUseCase {
             throw new AccountAlreadyExistsException("Account already exists with document number: " + documentNumber);
         }
 
+        logger.info("Persisting account into database: " + request);
+        
         return accountRepository.save(new Account(documentNumber));
     }
     

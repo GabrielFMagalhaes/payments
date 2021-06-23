@@ -11,6 +11,9 @@ import com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.Transactio
 import com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.convertes.TransactionRestConverter;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.response.TransactionResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +30,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TransactionControllerImpl implements TransactionController {
 
+    private final static Logger logger = LoggerFactory.getLogger(TransactionControllerImpl.class);
+
     private final TransactionRestConverter transactionRestConverter;
 
     private final CreateTransactionUseCase createTransactionUseCase;
@@ -36,8 +41,10 @@ public class TransactionControllerImpl implements TransactionController {
     @PostMapping
     public TransactionResponse create(@RequestBody @Valid CreateTransactionRequest request) {
         try {
+            logger.info("Create transaction request: " + request);
             return transactionRestConverter.mapToRest(createTransactionUseCase.execute(request));
         } catch (AccountNotFoundException | InvalidOperationTypeException e) {
+            logger.warn("Error for account not found or invalid operation exception. Details: ", e);
             throw new NotFoundException(e.getMessage());
         }
     }

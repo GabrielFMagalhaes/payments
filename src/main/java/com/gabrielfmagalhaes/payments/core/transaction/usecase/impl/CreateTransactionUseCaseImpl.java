@@ -13,10 +13,15 @@ import com.gabrielfmagalhaes.payments.core.transaction.ports.incoming.CreateTran
 import com.gabrielfmagalhaes.payments.core.transaction.ports.outgoing.TransactionRepositoryUseCase;
 import com.gabrielfmagalhaes.payments.core.transaction.usecase.CreateTransactionUseCase;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class CreateTransactionUseCaseImpl implements CreateTransactionUseCase {
+
+    private final static Logger logger = LoggerFactory.getLogger(CreateTransactionUseCaseImpl.class);
 
     private final TransactionRepositoryUseCase transactionRepositoryUseCase;
     
@@ -34,6 +39,8 @@ public class CreateTransactionUseCaseImpl implements CreateTransactionUseCase {
         
         Operation operation = operationRepositoryUseCase.findById(operationId)
             .orElseThrow(() -> new InvalidOperationTypeException("No account was found with id: " + operationId));    
+
+        logger.info("Persisting transaction into database: " + request);
 
         return transactionRepositoryUseCase.save(
             new Transaction(
