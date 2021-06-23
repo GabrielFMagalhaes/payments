@@ -25,7 +25,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/transactions")
-@Api(value = "Transactions", description = "REST API for Transactions", tags = { "Transactions" })
+@Api(value = "Transactions", tags = { "Transactions" })
 @AllArgsConstructor
 public class TransactionControllerImpl implements TransactionController {
 

@@ -33,7 +33,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/accounts")
-@Api(value = "Accounts", description = "REST API for Accounts", tags = { "Accounts" })
+@Api(value = "Accounts", tags = { "Accounts" })
 @AllArgsConstructor
 public class AccountControllerImpl implements AccountController {
 
