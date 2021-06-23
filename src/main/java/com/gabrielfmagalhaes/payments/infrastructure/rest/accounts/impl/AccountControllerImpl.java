@@ -49,7 +49,6 @@ public class AccountControllerImpl implements AccountController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public CreateAccountResponse create(@RequestBody @Valid CreateAccountRequest request) {
-
         try {
             logger.info("Create account request: ", request);
             return accountRestConverter.mapNewAccountToRest(createAccountUseCase.execute(request));
@@ -63,7 +62,6 @@ public class AccountControllerImpl implements AccountController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{accountId}")
     public AccountResponse findById(@PathVariable String accountId) {
-
         try {
             logger.info("Get account by id request: " + accountId);
             Account account = getAccountByIdUseCase.execute(UUID.fromString(accountId));
