@@ -18,6 +18,8 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
+    - name: Change wrapper permissions
+      run: chmod +x ./gradlew
     - name: Build with Gradle
       run: ./gradlew build
     - name: Login to Heroku Container registry
