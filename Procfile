@@ -1,0 +1,1 @@
+web: java -jar build/libs/payments-challenge-0.0.1-SNAPSHOT.jar -port=8080
