@@ -2,8 +2,8 @@ package com.gabrielfmagalhaes.payments.core.account.usecase.impl;
 
 import java.util.UUID;
 
-import com.gabrielfmagalhaes.payments.core.account.Account;
 import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundException;
+import com.gabrielfmagalhaes.payments.core.account.model.Account;
 import com.gabrielfmagalhaes.payments.core.account.ports.outgoing.AccountRepositoryUseCase;
 import com.gabrielfmagalhaes.payments.core.account.usecase.GetAccountByIdUseCase;
 

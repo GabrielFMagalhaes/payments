@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gabrielfmagalhaes.payments.core.account.Account;
-import com.gabrielfmagalhaes.payments.core.transaction.Transaction;
+import com.gabrielfmagalhaes.payments.core.account.model.Account;
+import com.gabrielfmagalhaes.payments.core.transaction.model.Transaction;
 import com.gabrielfmagalhaes.payments.core.transaction.ports.incoming.CreateTransactionRequest;
 import com.gabrielfmagalhaes.payments.core.transaction.usecase.CreateTransactionUseCase;
 import com.gabrielfmagalhaes.payments.infrastructure.PaymentsApplication;

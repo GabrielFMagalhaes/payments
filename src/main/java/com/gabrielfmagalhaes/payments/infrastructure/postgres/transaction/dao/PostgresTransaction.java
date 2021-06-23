@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.gabrielfmagalhaes.payments.core.transaction.Transaction;
+import com.gabrielfmagalhaes.payments.core.transaction.model.Transaction;
 import com.gabrielfmagalhaes.payments.infrastructure.postgres.account.dao.PostgresAccount;
 import com.gabrielfmagalhaes.payments.infrastructure.postgres.operation.dao.PostgresOperation;
 

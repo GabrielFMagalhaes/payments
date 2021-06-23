@@ -1,6 +1,6 @@
 package com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.convertes;
 
-import com.gabrielfmagalhaes.payments.core.transaction.Transaction;
+import com.gabrielfmagalhaes.payments.core.transaction.model.Transaction;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.response.TransactionResponse;
 
 public class TransactionRestConverter {

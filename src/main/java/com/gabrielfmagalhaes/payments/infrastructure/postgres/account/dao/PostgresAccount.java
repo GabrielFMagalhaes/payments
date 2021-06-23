@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.gabrielfmagalhaes.payments.core.account.Account;
+import com.gabrielfmagalhaes.payments.core.account.model.Account;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

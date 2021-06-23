@@ -2,7 +2,7 @@ package com.gabrielfmagalhaes.payments.infrastructure.postgres.operation.reposit
 
 import java.util.Optional;
 
-import com.gabrielfmagalhaes.payments.core.operation.Operation;
+import com.gabrielfmagalhaes.payments.core.operation.model.Operation;
 import com.gabrielfmagalhaes.payments.core.operation.ports.outgoing.OperationRepositoryUseCase;
 import com.gabrielfmagalhaes.payments.infrastructure.postgres.operation.dao.PostgresOperation;
 import com.gabrielfmagalhaes.payments.infrastructure.postgres.operation.repository.PostgresSpringDataOperationRepository;

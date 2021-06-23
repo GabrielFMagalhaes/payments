@@ -1,4 +1,4 @@
-package com.gabrielfmagalhaes.payments.core.account;
+package com.gabrielfmagalhaes.payments.core.account.model;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

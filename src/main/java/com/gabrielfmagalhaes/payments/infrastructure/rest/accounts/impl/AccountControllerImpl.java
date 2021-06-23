@@ -4,9 +4,9 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
-import com.gabrielfmagalhaes.payments.core.account.Account;
 import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountAlreadyExistsException;
 import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundException;
+import com.gabrielfmagalhaes.payments.core.account.model.Account;
 import com.gabrielfmagalhaes.payments.core.account.ports.incoming.CreateAccountRequest;
 import com.gabrielfmagalhaes.payments.core.account.usecase.CreateAccountUseCase;
 import com.gabrielfmagalhaes.payments.core.account.usecase.GetAccountByIdUseCase;

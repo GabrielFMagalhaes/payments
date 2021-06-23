@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.gabrielfmagalhaes.payments.core.account.Account;
+import com.gabrielfmagalhaes.payments.core.account.model.Account;
 
 import org.junit.jupiter.api.Test;
 

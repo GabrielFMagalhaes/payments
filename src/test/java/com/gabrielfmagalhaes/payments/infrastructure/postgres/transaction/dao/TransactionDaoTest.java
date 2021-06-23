@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.gabrielfmagalhaes.payments.core.account.Account;
-import com.gabrielfmagalhaes.payments.core.operation.Operation;
-import com.gabrielfmagalhaes.payments.core.transaction.Transaction;
+import com.gabrielfmagalhaes.payments.core.account.model.Account;
+import com.gabrielfmagalhaes.payments.core.operation.model.Operation;
+import com.gabrielfmagalhaes.payments.core.transaction.model.Transaction;
 import com.gabrielfmagalhaes.payments.infrastructure.postgres.account.dao.PostgresAccount;
 import com.gabrielfmagalhaes.payments.infrastructure.postgres.operation.dao.PostgresOperation;
 

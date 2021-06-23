@@ -2,13 +2,13 @@ package com.gabrielfmagalhaes.payments.core.transaction.usecase.impl;
 
 import java.util.UUID;
 
-import com.gabrielfmagalhaes.payments.core.account.Account;
 import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundException;
+import com.gabrielfmagalhaes.payments.core.account.model.Account;
 import com.gabrielfmagalhaes.payments.core.account.ports.outgoing.AccountRepositoryUseCase;
-import com.gabrielfmagalhaes.payments.core.operation.Operation;
 import com.gabrielfmagalhaes.payments.core.operation.exceptions.InvalidOperationTypeException;
+import com.gabrielfmagalhaes.payments.core.operation.model.Operation;
 import com.gabrielfmagalhaes.payments.core.operation.ports.outgoing.OperationRepositoryUseCase;
-import com.gabrielfmagalhaes.payments.core.transaction.Transaction;
+import com.gabrielfmagalhaes.payments.core.transaction.model.Transaction;
 import com.gabrielfmagalhaes.payments.core.transaction.ports.incoming.CreateTransactionRequest;
 import com.gabrielfmagalhaes.payments.core.transaction.ports.outgoing.TransactionRepositoryUseCase;
 import com.gabrielfmagalhaes.payments.core.transaction.usecase.CreateTransactionUseCase;

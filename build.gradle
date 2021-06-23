@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.5.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+    id 'jacoco'
 }
 
 group = 'com.gabrielfmagalhaes.payments'
@@ -37,12 +38,8 @@ dependencies {
 	testImplementation "org.springframework.boot:spring-boot-starter-test"
 	testImplementation "org.mockito:mockito-core"
     
-    testImplementation(
-            'org.junit.jupiter:junit-jupiter-api:5.4.2'
-    )
-	testRuntimeOnly(
-            'org.junit.jupiter:junit-jupiter-engine:5.4.2'
-    )
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.4.2"
+	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.4.2"
 }
 
 test {
@@ -50,5 +47,41 @@ test {
     testLogging.showStandardStreams = true
     testLogging{
         events "passed", "skipped", "failed"
+    }
+
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+        csv.enabled true
+        html.enabled true
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                "**/configuration/**",
+                "**/model/**",
+                "**/response/**",
+                "**/dao/**",
+                "**/ports/**"
+            ])
+        }))
+    }
+
+    finalizedBy jacocoTestCoverageVerification
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            enabled = true
+            limit {
+                minimum = 0.8
+            }
+        }
     }
 }

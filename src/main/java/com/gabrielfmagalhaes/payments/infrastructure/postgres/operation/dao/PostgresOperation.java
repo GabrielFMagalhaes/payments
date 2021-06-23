@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.gabrielfmagalhaes.payments.core.operation.Operation;
+import com.gabrielfmagalhaes.payments.core.operation.model.Operation;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

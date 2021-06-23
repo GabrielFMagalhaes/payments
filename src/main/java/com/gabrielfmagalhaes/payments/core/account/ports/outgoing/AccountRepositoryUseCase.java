@@ -3,7 +3,7 @@ package com.gabrielfmagalhaes.payments.core.account.ports.outgoing;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.gabrielfmagalhaes.payments.core.account.Account;
+import com.gabrielfmagalhaes.payments.core.account.model.Account;
 
 public interface AccountRepositoryUseCase {
 

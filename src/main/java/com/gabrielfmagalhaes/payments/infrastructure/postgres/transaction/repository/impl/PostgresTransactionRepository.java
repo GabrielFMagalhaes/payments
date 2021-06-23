@@ -1,6 +1,6 @@
 package com.gabrielfmagalhaes.payments.infrastructure.postgres.transaction.repository.impl;
 
-import com.gabrielfmagalhaes.payments.core.transaction.Transaction;
+import com.gabrielfmagalhaes.payments.core.transaction.model.Transaction;
 import com.gabrielfmagalhaes.payments.core.transaction.ports.outgoing.TransactionRepositoryUseCase;
 import com.gabrielfmagalhaes.payments.infrastructure.postgres.transaction.dao.PostgresTransaction;
 import com.gabrielfmagalhaes.payments.infrastructure.postgres.transaction.repository.PostgresSpringDataTransactionRepository;

@@ -1,6 +1,6 @@
 package com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.converters;
 
-import com.gabrielfmagalhaes.payments.core.account.Account;
+import com.gabrielfmagalhaes.payments.core.account.model.Account;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.response.AccountResponse;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.response.CreateAccountResponse;
 

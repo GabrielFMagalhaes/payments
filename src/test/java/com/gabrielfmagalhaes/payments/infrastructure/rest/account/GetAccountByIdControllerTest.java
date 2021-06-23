@@ -9,8 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.UUID;
 
-import com.gabrielfmagalhaes.payments.core.account.Account;
 import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundException;
+import com.gabrielfmagalhaes.payments.core.account.model.Account;
 import com.gabrielfmagalhaes.payments.core.account.usecase.CreateAccountUseCase;
 import com.gabrielfmagalhaes.payments.core.account.usecase.GetAccountByIdUseCase;
 import com.gabrielfmagalhaes.payments.infrastructure.PaymentsApplication;

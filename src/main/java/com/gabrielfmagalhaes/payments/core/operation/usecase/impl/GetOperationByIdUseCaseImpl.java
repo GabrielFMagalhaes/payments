@@ -2,7 +2,7 @@ package com.gabrielfmagalhaes.payments.core.operation.usecase.impl;
 
 import javax.management.openmbean.InvalidOpenTypeException;
 
-import com.gabrielfmagalhaes.payments.core.operation.Operation;
+import com.gabrielfmagalhaes.payments.core.operation.model.Operation;
 import com.gabrielfmagalhaes.payments.core.operation.ports.outgoing.OperationRepositoryUseCase;
 import com.gabrielfmagalhaes.payments.core.operation.usecase.GetOperationByIdUseCase;
 

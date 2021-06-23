@@ -12,12 +12,13 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.gabrielfmagalhaes.payments.core.account.Account;
 import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundException;
+import com.gabrielfmagalhaes.payments.core.account.model.Account;
 import com.gabrielfmagalhaes.payments.core.account.ports.outgoing.AccountRepositoryUseCase;
-import com.gabrielfmagalhaes.payments.core.operation.Operation;
 import com.gabrielfmagalhaes.payments.core.operation.exceptions.InvalidOperationTypeException;
+import com.gabrielfmagalhaes.payments.core.operation.model.Operation;
 import com.gabrielfmagalhaes.payments.core.operation.ports.outgoing.OperationRepositoryUseCase;
+import com.gabrielfmagalhaes.payments.core.transaction.model.Transaction;
 import com.gabrielfmagalhaes.payments.core.transaction.ports.incoming.CreateTransactionRequest;
 import com.gabrielfmagalhaes.payments.core.transaction.ports.outgoing.TransactionRepositoryUseCase;
 import com.gabrielfmagalhaes.payments.core.transaction.usecase.impl.CreateTransactionUseCaseImpl;
@@ -49,7 +50,6 @@ public class CreateTransactionUseCaseTest {
 
     private final static LocalDateTime CURRENT_DATE = LocalDateTime.now();
 
-    private final static UUID TRANSACTION_UUID = java.util.UUID.randomUUID();
     private final static BigDecimal TRANSACTION_AMOUNT = new BigDecimal(30);
 
     private final static UUID ACCOUNT_UUID = java.util.UUID.randomUUID();
@@ -83,17 +83,8 @@ public class CreateTransactionUseCaseTest {
             OPERATION_ID, 
             TRANSACTION_AMOUNT);
 
-        final Transaction transaction = new Transaction(
-            TRANSACTION_UUID, 
-            account, 
-            operation,
-            TRANSACTION_AMOUNT,
-            CURRENT_DATE)
-        ;
-
-        when(accountRepositoryUseCase.findById(any(UUID.class))).thenReturn(Optional.of(account));
-        when(operationRepositoryUseCase.findById(any(Long.class))).thenReturn(Optional.of(operation));
-        when(transactionRepositoryUseCase.save(any(Transaction.class))).thenReturn(transaction);
+        when(accountRepositoryUseCase.findById(account.getId())).thenReturn(Optional.of(account));
+        when(operationRepositoryUseCase.findById(OPERATION_ID)).thenReturn(Optional.of(operation));
 
         Transaction expected = createTransactionUseCase.execute(request);
 

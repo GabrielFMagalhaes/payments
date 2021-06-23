@@ -1,4 +1,4 @@
-package com.gabrielfmagalhaes.payments.core.operation;
+package com.gabrielfmagalhaes.payments.core.operation.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
