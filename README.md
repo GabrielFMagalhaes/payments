@@ -7,7 +7,11 @@ For building and running the application you need:
 
 ## API's
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/b6f14537941b7fcc532a)
+### Local
+[![Run in Postman - Localhost](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/b6f14537941b7fcc532a)
+
+### Heroku
+[![Run in Postman - Heroku](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/450543d5af59d1cf813c)
 
 
 ### Swagger
@@ -40,7 +44,7 @@ docker-compose up --build
 
 ## Deployment
 
-GitHub Actions to automate deploy 
+GitHub Actions to automate deploy into Heroku
 
 
 ## Built With
