@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "e6283be2-3426-4b83-8e22-02c92e2c6161",
+		"name": "Payments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"account_id\": \"42238c27-e5f1-4927-aecf-c8b6411351ad\",\r\n    \"operation_type_id\": 4,\r\n    \"amount\": 80\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://app-payments-challenge.herokuapp.com/payments/v1/transactions",
+							"protocol": "https",
+							"host": [
+								"app-payments-challenge",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"payments",
+								"v1",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"document_number\": \"123456784000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://app-payments-challenge.herokuapp.com/payments/v1/accounts",
+							"protocol": "https",
+							"host": [
+								"app-payments-challenge",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"payments",
+								"v1",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://app-payments-challenge.herokuapp.com/payments/v1/accounts/:accountId",
+							"protocol": "https",
+							"host": [
+								"app-payments-challenge",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"payments",
+								"v1",
+								"accounts",
+								":accountId"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "42238c27-e5f1-4927-aecf-c8b6411351ad"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
