@@ -1,1 +1,1 @@
-web: java -Xmx256m -jar build/libs/payments-challenge-0.0.1-SNAPSHOT.jar -port=8080
+web: java -Xmx256m -XX:+UseContainerSupport -jar build/libs/payments-challenge-0.0.1-SNAPSHOT.jar -port=8080
