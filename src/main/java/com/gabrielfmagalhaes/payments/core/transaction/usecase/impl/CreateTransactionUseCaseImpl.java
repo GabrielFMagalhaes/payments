@@ -1,5 +1,6 @@
 package com.gabrielfmagalhaes.payments.core.transaction.usecase.impl;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundException;
@@ -34,19 +35,43 @@ public class CreateTransactionUseCaseImpl implements CreateTransactionUseCase {
         UUID accountUUID = UUID.fromString(request.getAccountId());
         Long operationId = request.getOperationTypeId();
 
+
         Account account = accountRepositoryUseCase.findById(accountUUID)
             .orElseThrow(() -> new AccountNotFoundException("No account was found with id: " + accountUUID));
         
         Operation operation = operationRepositoryUseCase.findById(operationId)
-            .orElseThrow(() -> new InvalidOperationTypeException("No account was found with id: " + operationId));    
+            .orElseThrow(() -> new InvalidOperationTypeException("No operation was found with id: " + operationId));    
 
-        logger.info("Persisting transaction into database: " + request);
+        if (isValidTransaction(operation.getDescription(), request.getAmount())) {
+            
+            logger.info("Persisting transaction into database: " + request);
 
-        return transactionRepositoryUseCase.save(
-            new Transaction(
-                account, 
-                operation, 
-                request.getAmount()))
-        ;
+            return transactionRepositoryUseCase.save(
+                new Transaction(
+                    account, 
+                    operation, 
+                    request.getAmount()))
+            ;
+        } 
+        
+        throw new InvalidOperationTypeException("Invalid transaction. Check if you're sending correct amount and operation type");
+    }
+
+    private boolean isPayment(String operationDescription) {
+        return operationDescription.toUpperCase().contains("PAGAMENTO");
+    }
+
+    private boolean isPositiveAmount(BigDecimal amount) {
+        return amount.compareTo(BigDecimal.ZERO) > 0;
+    }
+
+    private boolean isValidTransaction(String operationDescription, BigDecimal amount) {
+        if (isPayment(operationDescription) && isPositiveAmount(amount)) {
+            return true;
+        } else if (!isPayment(operationDescription) && !isPositiveAmount(amount)) {
+            return true;
+        }
+
+        return false;
     }
 }

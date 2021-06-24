@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   application:
-    container_name: payment-application
+    container_name: payments-application
     restart: always
     build:
       context: .
@@ -17,7 +17,7 @@ services:
       PORT: 8080
 
   postgres:
-    container_name: postgres-payment-container
+    container_name: postgres-payments-container
     image: postgres:11-alpine
     command: ["-c", "max_connections=200"]
     ports:

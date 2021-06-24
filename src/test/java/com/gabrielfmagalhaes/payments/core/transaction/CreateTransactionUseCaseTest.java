@@ -46,13 +46,15 @@ public class CreateTransactionUseCaseTest {
 
     private final static LocalDateTime CURRENT_DATE = LocalDateTime.now();
 
-    private final static BigDecimal TRANSACTION_AMOUNT = new BigDecimal(30);
+    private final static BigDecimal POSITIVE_TRANSACTION_AMOUNT = new BigDecimal(30);
+    private final static BigDecimal NEGATIVE_TRANSACTION_AMOUNT = new BigDecimal(-30);
 
     private final static UUID ACCOUNT_UUID = java.util.UUID.randomUUID();
     private final static String ACCOUNT_DOCUMENT_NUMBER = "12345678900";
     
     private final static Long OPERATION_ID = 1l;
-    private final static String OPERATION_DESCRIPTION = "PAGAMENTO";
+    private final static String OPERATION_PAYMENT = "PAGAMENTO";
+    private final static String OPERATION_WITHDRAW = "COMPRA";
 
     private Account account;
     private Operation operation;
@@ -68,16 +70,36 @@ public class CreateTransactionUseCaseTest {
         
         operation = new Operation(
             OPERATION_ID, 
-            OPERATION_DESCRIPTION)
+            OPERATION_PAYMENT)
         ;       
     }
 
     @Test
-    void shouldSaveTransaction() {
+    void shouldSaveTransactionWhenPaymentOperation() {
         CreateTransactionRequest request = new CreateTransactionRequest(
             account.getId().toString(), 
             OPERATION_ID, 
-            TRANSACTION_AMOUNT);
+            POSITIVE_TRANSACTION_AMOUNT);
+
+        when(accountRepositoryUseCase.findById(account.getId())).thenReturn(Optional.of(account));
+        when(operationRepositoryUseCase.findById(OPERATION_ID)).thenReturn(Optional.of(operation));
+
+        Transaction expected = createTransactionUseCase.execute(request);
+
+        assertThat(createTransactionUseCase.execute(request)).isEqualTo(expected);
+    }
+
+    @Test
+    void shouldSaveTransactionWhenWithdrawOperation() {
+        CreateTransactionRequest request = new CreateTransactionRequest(
+            account.getId().toString(), 
+            OPERATION_ID, 
+            NEGATIVE_TRANSACTION_AMOUNT);
+
+        operation = new Operation(
+            OPERATION_ID, 
+            OPERATION_WITHDRAW)
+        ;      
 
         when(accountRepositoryUseCase.findById(account.getId())).thenReturn(Optional.of(account));
         when(operationRepositoryUseCase.findById(OPERATION_ID)).thenReturn(Optional.of(operation));
@@ -92,7 +114,7 @@ public class CreateTransactionUseCaseTest {
         CreateTransactionRequest request = new CreateTransactionRequest(
             account.getId().toString(), 
             OPERATION_ID, 
-            TRANSACTION_AMOUNT);
+            POSITIVE_TRANSACTION_AMOUNT);
 
         when(accountRepositoryUseCase.findById(any(UUID.class))).thenReturn(Optional.empty());
 
@@ -109,7 +131,7 @@ public class CreateTransactionUseCaseTest {
         CreateTransactionRequest request = new CreateTransactionRequest(
             account.getId().toString(), 
             OPERATION_ID, 
-            TRANSACTION_AMOUNT);
+            POSITIVE_TRANSACTION_AMOUNT);
 
         when(accountRepositoryUseCase.findById(any(UUID.class))).thenReturn(Optional.of(account));
         when(operationRepositoryUseCase.findById(any(Long.class))).thenReturn(Optional.empty());
@@ -122,4 +144,49 @@ public class CreateTransactionUseCaseTest {
         verifyNoMoreInteractions(operationRepositoryUseCase);
         verifyNoMoreInteractions(transactionRepositoryUseCase);
     }
+
+    @Test
+    void shouldThrowErrorWhenInvalidAmountForPaymentOperation() {
+        CreateTransactionRequest request = new CreateTransactionRequest(
+            account.getId().toString(), 
+            OPERATION_ID, 
+            NEGATIVE_TRANSACTION_AMOUNT);
+
+        when(accountRepositoryUseCase.findById(any(UUID.class))).thenReturn(Optional.of(account));
+        when(operationRepositoryUseCase.findById(any(Long.class))).thenReturn(Optional.of(operation));
+
+        assertThrows(InvalidOperationTypeException.class,() -> {
+            createTransactionUseCase.execute(request);
+        }); 
+
+        verifyNoMoreInteractions(accountRepositoryUseCase);
+        verifyNoMoreInteractions(operationRepositoryUseCase);
+        verifyNoMoreInteractions(transactionRepositoryUseCase);
+    }
+
+    @Test
+    void shouldThrowErrorWhenInvalidAmountForWithdrawOperation() {
+        CreateTransactionRequest request = new CreateTransactionRequest(
+            account.getId().toString(), 
+            OPERATION_ID, 
+            POSITIVE_TRANSACTION_AMOUNT);
+            
+        operation = new Operation(
+            OPERATION_ID, 
+            OPERATION_WITHDRAW)
+        ;  
+
+        when(accountRepositoryUseCase.findById(any(UUID.class))).thenReturn(Optional.of(account));
+        when(operationRepositoryUseCase.findById(any(Long.class))).thenReturn(Optional.of(operation));
+
+        assertThrows(InvalidOperationTypeException.class,() -> {
+            createTransactionUseCase.execute(request);
+        }); 
+
+        verifyNoMoreInteractions(accountRepositoryUseCase);
+        verifyNoMoreInteractions(operationRepositoryUseCase);
+        verifyNoMoreInteractions(transactionRepositoryUseCase);
+    }
+
+    
 }
