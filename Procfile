@@ -1,1 +1,1 @@
-web: java -Xmx256m -XX:+UseContainerSupport -jar build/libs/payments-challenge-0.0.1-SNAPSHOT.jar -port=8080
+web: java Xmx384m -Xss512k -XX:+UseCompressedOops -XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCDateStamps -jar build/libs/payments-challenge-0.0.1-SNAPSHOT.jar -port=${PORT}
