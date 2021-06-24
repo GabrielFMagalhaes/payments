@@ -11,7 +11,7 @@ For building and running the application you need:
 
 
 ### Swagger
-Also don't forget to visit Swagger URL when running the app
+Visit Swagger URL when running the app
 - http://localhost:8080/payments/v1/swagger-ui.html
 
 
