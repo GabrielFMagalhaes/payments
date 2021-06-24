@@ -11,12 +11,13 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundException;
 import com.gabrielfmagalhaes.payments.core.account.model.Account;
+import com.gabrielfmagalhaes.payments.core.operation.exceptions.InvalidOperationTypeException;
 import com.gabrielfmagalhaes.payments.core.transaction.model.Transaction;
 import com.gabrielfmagalhaes.payments.core.transaction.ports.incoming.CreateTransactionRequest;
 import com.gabrielfmagalhaes.payments.core.transaction.usecase.CreateTransactionUseCase;
 import com.gabrielfmagalhaes.payments.infrastructure.PaymentsApplication;
-import com.gabrielfmagalhaes.payments.infrastructure.rest.exceptions.NotFoundException;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.convertes.TransactionRestConverter;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.transaction.response.TransactionResponse;
 
@@ -135,7 +136,7 @@ public class CreateTransactionControllerTest {
             TRANSACTION_AMOUNT);
 
         when(createTransactionUseCase.execute(any(CreateTransactionRequest.class)))
-            .thenThrow(new NotFoundException("error"));
+            .thenThrow(new AccountNotFoundException("error"));
 
         this.mockMvc.perform(post("/transactions")
             .contentType(MediaType.APPLICATION_JSON)
@@ -152,7 +153,7 @@ public class CreateTransactionControllerTest {
             TRANSACTION_AMOUNT);
 
         when(createTransactionUseCase.execute(any(CreateTransactionRequest.class)))
-            .thenThrow(new NotFoundException("error"));
+            .thenThrow(new InvalidOperationTypeException("error"));
 
         this.mockMvc.perform(post("/transactions")
             .contentType(MediaType.APPLICATION_JSON)

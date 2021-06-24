@@ -1,7 +1,6 @@
 package com.gabrielfmagalhaes.payments.core.operation.usecase.impl;
 
-import javax.management.openmbean.InvalidOpenTypeException;
-
+import com.gabrielfmagalhaes.payments.core.operation.exceptions.InvalidOperationTypeException;
 import com.gabrielfmagalhaes.payments.core.operation.model.Operation;
 import com.gabrielfmagalhaes.payments.core.operation.ports.outgoing.OperationRepositoryUseCase;
 import com.gabrielfmagalhaes.payments.core.operation.usecase.GetOperationByIdUseCase;
@@ -23,7 +22,7 @@ public class GetOperationByIdUseCaseImpl implements GetOperationByIdUseCase {
         logger.info("Finding operation by id from database: " + id);
 
         return operationRepositoryUseCase.findById(id)
-            .orElseThrow(() -> new InvalidOpenTypeException("No operation was found with id: " + id));
+            .orElseThrow(() -> new InvalidOperationTypeException("No operation was found with id: " + id));
     }
 
 }

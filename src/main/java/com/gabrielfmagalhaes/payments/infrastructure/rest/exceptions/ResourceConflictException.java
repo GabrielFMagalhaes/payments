@@ -9,8 +9,4 @@ public class ResourceConflictException extends RuntimeException {
     public ResourceConflictException(final String message) {
         super(message);
     }
-
-    public ResourceConflictException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
 }

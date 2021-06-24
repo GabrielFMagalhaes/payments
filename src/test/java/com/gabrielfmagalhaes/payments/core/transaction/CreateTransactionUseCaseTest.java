@@ -3,8 +3,7 @@ package com.gabrielfmagalhaes.payments.core.transaction;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -35,9 +34,6 @@ public class CreateTransactionUseCaseTest {
 
     @Mock
     private TransactionRepositoryUseCase transactionRepositoryUseCase;
-
-    @Mock
-    private TransactionRepositoryUseCase transactionRepositoryUseCase2;
     
     @Mock
     private AccountRepositoryUseCase accountRepositoryUseCase;
@@ -104,7 +100,8 @@ public class CreateTransactionUseCaseTest {
             createTransactionUseCase.execute(request);
         }); 
 
-        verify(accountRepositoryUseCase, never()).save(any(Account.class));
+        verifyNoMoreInteractions(accountRepositoryUseCase);
+        verifyNoMoreInteractions(transactionRepositoryUseCase);
     }
 
     @Test
@@ -121,6 +118,8 @@ public class CreateTransactionUseCaseTest {
             createTransactionUseCase.execute(request);
         }); 
 
-        verify(accountRepositoryUseCase, never()).save(any(Account.class));
+        verifyNoMoreInteractions(accountRepositoryUseCase);
+        verifyNoMoreInteractions(operationRepositoryUseCase);
+        verifyNoMoreInteractions(transactionRepositoryUseCase);
     }
 }

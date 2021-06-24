@@ -3,8 +3,8 @@ package com.gabrielfmagalhaes.payments.core.account.usecase;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
@@ -56,6 +56,8 @@ public class GetAccountByIdUseCaseTest {
         Account expected = getAccountByIdUseCase.execute(uuid);
 
         assertThat(expected).isNotNull();
+
+        verify(accountRepositoryUseCase).findById(any(UUID.class));
     }
 
     @Test
@@ -68,7 +70,7 @@ public class GetAccountByIdUseCaseTest {
         assertThrows(AccountNotFoundException.class,() -> {
             getAccountByIdUseCase.execute(uuid);
         }); 
-
-        verify(accountRepositoryUseCase, never()).save(any(Account.class));
+        
+        verifyNoMoreInteractions(accountRepositoryUseCase);
     }
 }
