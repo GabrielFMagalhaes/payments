@@ -18,6 +18,9 @@ For building and running the application you need:
 Visit Swagger URL when running the app
 - http://localhost:8080/payments/v1/swagger-ui.html
 
+or in Heroku    
+- https://app-payments-challenge.herokuapp.com/payments/v1/swagger-ui.html
+
 
 ## Running
 
