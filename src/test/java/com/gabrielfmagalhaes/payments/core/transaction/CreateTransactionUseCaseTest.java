@@ -48,6 +48,8 @@ public class CreateTransactionUseCaseTest {
 
     private final static BigDecimal POSITIVE_TRANSACTION_AMOUNT = new BigDecimal(30);
     private final static BigDecimal NEGATIVE_TRANSACTION_AMOUNT = new BigDecimal(-30);
+    
+    private final static BigDecimal ACCOUNT_CREDIT_AVAILABLE = new BigDecimal(5000);
 
     private final static UUID ACCOUNT_UUID = java.util.UUID.randomUUID();
     private final static String ACCOUNT_DOCUMENT_NUMBER = "12345678900";
@@ -64,6 +66,7 @@ public class CreateTransactionUseCaseTest {
          account = new Account(
             ACCOUNT_UUID, 
             ACCOUNT_DOCUMENT_NUMBER, 
+            ACCOUNT_CREDIT_AVAILABLE,
             CURRENT_DATE,
             CURRENT_DATE)
         ;

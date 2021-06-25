@@ -52,7 +52,7 @@ public class CreateTransactionControllerTest {
     private final static String ACCOUNT_DOCUMENT_NUMBER = "12345678900";
 
     private final static Long OPERATION_ID = 1l;
-    
+
     @BeforeEach
     void setUp() {        
         mapper = new ObjectMapper();

@@ -23,6 +23,7 @@ public class TransactionDaoTest {
 
     private final static UUID ACCOUNT_UUID = java.util.UUID.randomUUID();
     private final static String ACCOUNT_DOCUMENT_NUMBER = "12345678900";
+    private final static BigDecimal ACCOUNT_CREDIT_AVAILABLE = new BigDecimal(5000);
     
     private final static Long OPERATION_ID = 1l;
     private final static String OPERATION_DESCRIPTION = "PAGAMENTO";
@@ -30,6 +31,7 @@ public class TransactionDaoTest {
     private static final Account VALID_ACCOUNT = new Account(
         ACCOUNT_UUID, 
         ACCOUNT_DOCUMENT_NUMBER, 
+        ACCOUNT_CREDIT_AVAILABLE,
         CURRENT_DATE,
         CURRENT_DATE)
     ;
@@ -37,6 +39,7 @@ public class TransactionDaoTest {
     private static final PostgresAccount VALID_ACCOUNT_DAO = new PostgresAccount(
         ACCOUNT_UUID, 
         ACCOUNT_DOCUMENT_NUMBER,
+        ACCOUNT_CREDIT_AVAILABLE,
         CURRENT_DATE,
         CURRENT_DATE)
     ;

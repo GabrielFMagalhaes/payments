@@ -13,6 +13,7 @@ import com.gabrielfmagalhaes.payments.core.account.exceptions.AccountNotFoundExc
 import com.gabrielfmagalhaes.payments.core.account.model.Account;
 import com.gabrielfmagalhaes.payments.core.account.usecase.CreateAccountUseCase;
 import com.gabrielfmagalhaes.payments.core.account.usecase.GetAccountByIdUseCase;
+import com.gabrielfmagalhaes.payments.core.account.usecase.UpdateAccountLimitUseCase;
 import com.gabrielfmagalhaes.payments.infrastructure.PaymentsApplication;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.AccountController;
 import com.gabrielfmagalhaes.payments.infrastructure.rest.accounts.converters.AccountRestConverter;
@@ -35,6 +36,9 @@ public class GetAccountByIdControllerTest {
 
     @MockBean
     private CreateAccountUseCase createAccountUseCase;
+    
+    @MockBean
+    private UpdateAccountLimitUseCase updateAccountLimitUseCase;
     
     @MockBean
     private AccountRestConverter accountRestConverter;

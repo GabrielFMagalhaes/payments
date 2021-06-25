@@ -2,6 +2,7 @@ package com.gabrielfmagalhaes.payments.infrastructure.postgres.account.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -16,10 +17,13 @@ public class AccountDaoTest {
     private final static LocalDateTime CURRENT_DATE = LocalDateTime.now();
 
     private final static UUID UUID = java.util.UUID.randomUUID();
+
+    private final static BigDecimal ACCOUNT_CREDIT_AVAILABLE = new BigDecimal(5000);
     
     private static final Account VALID_ACCOUNT = new Account(
         UUID, 
         DOCUMENT_NUMBER, 
+        ACCOUNT_CREDIT_AVAILABLE,
         CURRENT_DATE,
         CURRENT_DATE)
     ;
@@ -27,6 +31,7 @@ public class AccountDaoTest {
     private static final PostgresAccount VALID_ACCOUNT_DAO = new PostgresAccount(
         UUID, 
         DOCUMENT_NUMBER,
+        ACCOUNT_CREDIT_AVAILABLE,
         CURRENT_DATE,
         CURRENT_DATE)
     ;

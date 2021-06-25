@@ -1,5 +1,6 @@
 package com.gabrielfmagalhaes.payments.core.account.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -16,6 +17,7 @@ public class Account {
 
     private UUID id = UUID.randomUUID();
     private String documentNumber;
+    private BigDecimal availableCreditLimit = BigDecimal.ZERO;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
 

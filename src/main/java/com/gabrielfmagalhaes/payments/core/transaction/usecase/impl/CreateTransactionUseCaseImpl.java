@@ -39,12 +39,22 @@ public class CreateTransactionUseCaseImpl implements CreateTransactionUseCase {
         Account account = accountRepositoryUseCase.findById(accountUUID)
             .orElseThrow(() -> new AccountNotFoundException("No account was found with id: " + accountUUID));
         
+        BigDecimal accountAvailableCreditLimit = account.getAvailableCreditLimit();
+
         Operation operation = operationRepositoryUseCase.findById(operationId)
             .orElseThrow(() -> new InvalidOperationTypeException("No operation was found with id: " + operationId));    
 
-        if (isValidTransaction(operation.getDescription(), request.getAmount())) {
+        if (isValidTransaction(accountAvailableCreditLimit, operation.getDescription(), request.getAmount())) {
             
             logger.info("Persisting transaction into database: " + request);
+
+            if(isPayment(operation.getDescription())) {
+                account.setAvailableCreditLimit(accountAvailableCreditLimit.add(request.getAmount()));
+            } else {
+                account.setAvailableCreditLimit(accountAvailableCreditLimit.subtract(request.getAmount().abs()));
+            }
+
+            accountRepositoryUseCase.save(account);
 
             return transactionRepositoryUseCase.save(
                 new Transaction(
@@ -65,10 +75,16 @@ public class CreateTransactionUseCaseImpl implements CreateTransactionUseCase {
         return amount.compareTo(BigDecimal.ZERO) > 0;
     }
 
-    private boolean isValidTransaction(String operationDescription, BigDecimal amount) {
+    private boolean isCreditAvailable(BigDecimal accountCreditAvailable, BigDecimal transactionAmount) {
+        return accountCreditAvailable.compareTo(transactionAmount.abs()) >= 0;
+    }
+
+    private boolean isValidTransaction(BigDecimal accountCreditAvailable, String operationDescription, BigDecimal amount) {
         if (isPayment(operationDescription) && isPositiveAmount(amount)) {
             return true;
-        } else if (!isPayment(operationDescription) && !isPositiveAmount(amount)) {
+        } else if (!isPayment(operationDescription) 
+            && !isPositiveAmount(amount) 
+            && isCreditAvailable(accountCreditAvailable, amount)) {
             return true;
         }
 

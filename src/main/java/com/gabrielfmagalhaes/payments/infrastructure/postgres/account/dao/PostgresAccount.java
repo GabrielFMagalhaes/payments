@@ -1,5 +1,6 @@
 package com.gabrielfmagalhaes.payments.infrastructure.postgres.account.dao;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -32,6 +33,9 @@ public class PostgresAccount {
     @Column(name = "document_number", nullable = false)
     private String documentNumber;
 
+    @Column(name = "available_credit_limit", nullable = false)
+    private BigDecimal availableCreditLimit = BigDecimal.ZERO;
+
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -44,6 +48,7 @@ public class PostgresAccount {
         return new PostgresAccount()
             .withId(account.getId())
             .withDocumentNumber(account.getDocumentNumber())
+            .withAvailableCreditLimit(account.getAvailableCreditLimit())
         ;
     }
 
@@ -51,6 +56,7 @@ public class PostgresAccount {
         return new Account()
             .withId(id)
             .withDocumentNumber(documentNumber)
+            .withAvailableCreditLimit(availableCreditLimit)
             .withCreatedAt(createdAt)
             .withUpdatedAt(updatedAt)
         ;

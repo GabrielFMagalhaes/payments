@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -29,9 +30,13 @@ public class AccountRestConverterTest {
 
     private final static String VALID_DOCUMENT_NUMBER = "12345678900";
     
+    private final static BigDecimal ACCOUNT_CREDIT_AVAILABLE = new BigDecimal(30);
+    
+    
     private static final Account VALID_TRANSACTION = new Account(
         UUID, 
         VALID_DOCUMENT_NUMBER,
+        ACCOUNT_CREDIT_AVAILABLE,
         CURRENT_DATE,
         CURRENT_DATE)
     ;
