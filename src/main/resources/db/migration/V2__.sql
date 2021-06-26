@@ -32,3 +32,6 @@ insert into operation
 		(2, 'COMPRA PARCELADA'),
 		(3, 'SAQUE'),
 		(4, 'PAGAMENTO');
+
+
+ALTER TABLE account ADD COLUMN available_credit_limit DECIMAL; 
