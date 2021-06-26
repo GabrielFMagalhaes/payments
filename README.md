@@ -8,10 +8,10 @@ For building and running the application you need:
 ## API's
 
 ### Local
-[![Run in Postman - Localhost](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/b6f14537941b7fcc532a)
+[![Run in Postman - Localhost](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/c1408c0b4f66dcaa8f99)
 
 ### Heroku
-[![Run in Postman - Heroku](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/450543d5af59d1cf813c)
+[![Run in Postman - Heroku](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/66ea4cf3000b63cc714b)
 
 
 ### Swagger

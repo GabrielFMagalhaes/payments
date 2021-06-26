@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "e6283be2-3426-4b83-8e22-02c92e2c6161",
-		"name": "Payments",
+		"_postman_id": "be72186e-3834-48aa-8ca6-64c893c363e5",
+		"name": "Payments - Heroku",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -97,7 +97,76 @@
 							"variable": [
 								{
 									"key": "accountId",
-									"value": "42238c27-e5f1-4927-aecf-c8b6411351ad"
+									"value": "eccaa48a-47be-48ae-b729-1c1ed8cdc865"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetLimit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://app-payments-challenge.herokuapp.com/payments/v1/accounts/limits/:accountId",
+							"protocol": "https",
+							"host": [
+								"app-payments-challenge",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"payments",
+								"v1",
+								"accounts",
+								"limits",
+								":accountId"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "7daf8c23-61d5-4749-9108-52fa9cf1c1f2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Limit",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"available_credit_limit\": 20000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://app-payments-challenge.herokuapp.com/payments/v1/accounts/limits/:accountId",
+							"protocol": "https",
+							"host": [
+								"app-payments-challenge",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"payments",
+								"v1",
+								"accounts",
+								"limits",
+								":accountId"
+							],
+							"variable": [
+								{
+									"key": "accountId",
+									"value": "7daf8c23-61d5-4749-9108-52fa9cf1c1f2"
 								}
 							]
 						}
